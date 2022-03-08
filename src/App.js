@@ -1,5 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { initializeApp } from "firebase/app";
+import { getFirestore, collection, doc, query, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
 import "./App.css";
 import Home from "./Home/Home";
@@ -10,7 +12,7 @@ import ViewEditCreateTaskPage from "./ViewEditCreateTaskPage/ViewEditCreateTaskP
 import EditCreateListPage from "./EditCreateListPage/EditCreateListPage";
 
 function App(props) {
-  // Your web app's Firebase configuration
+  // Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyCTWXsmkK9nspvjf3e5-7QBPm9Svrn6jIU",
     authDomain: "cs124-lab3-b556f.firebaseapp.com",
@@ -21,9 +23,13 @@ function App(props) {
   };
 
   // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
+  const firebaseApp = initializeApp(firebaseConfig);
+  const db = getFirestore(firebaseApp);
 
-  console.log(app);
+  // Set up lists collection
+  const listsRef = collection(db, "lists");
+  const listsQuery = query(listsRef);
+  const [lists, loading, error] = useCollectionData(listsQuery);
   
   const [data, setData] = useState(props.initialData);
 
