@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { initializeApp } from "firebase/app";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
 import "./App.css";
 import Home from "./Home/Home";
@@ -9,6 +10,21 @@ import ViewEditCreateTaskPage from "./ViewEditCreateTaskPage/ViewEditCreateTaskP
 import EditCreateListPage from "./EditCreateListPage/EditCreateListPage";
 
 function App(props) {
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCTWXsmkK9nspvjf3e5-7QBPm9Svrn6jIU",
+    authDomain: "cs124-lab3-b556f.firebaseapp.com",
+    projectId: "cs124-lab3-b556f",
+    storageBucket: "cs124-lab3-b556f.appspot.com",
+    messagingSenderId: "160030425461",
+    appId: "1:160030425461:web:0c2b73599e571b82aa533c"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+
+
   const [data, setData] = useState(props.initialData);
 
   function handleEditTask(listId, taskId, taskField, newValue) {
