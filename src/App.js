@@ -23,8 +23,8 @@ function App(props) {
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
 
-
-
+  console.log(app);
+  
   const [data, setData] = useState(props.initialData);
 
   function handleEditTask(listId, taskId, taskField, newValue) {
