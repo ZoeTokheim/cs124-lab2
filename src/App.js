@@ -1,7 +1,5 @@
 import React, { Fragment, useState } from "react";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, doc, query, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
-import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
 import "./App.css";
 import Home from "./Home/Home";
@@ -11,25 +9,26 @@ import SingleListPage from "./SingleListPage/SingleListPage";
 import ViewEditCreateTaskPage from "./ViewEditCreateTaskPage/ViewEditCreateTaskPage";
 import EditCreateListPage from "./EditCreateListPage/EditCreateListPage";
 
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCTWXsmkK9nspvjf3e5-7QBPm9Svrn6jIU",
+  authDomain: "cs124-lab3-b556f.firebaseapp.com",
+  projectId: "cs124-lab3-b556f",
+  storageBucket: "cs124-lab3-b556f.appspot.com",
+  messagingSenderId: "160030425461",
+  appId: "1:160030425461:web:0c2b73599e571b82aa533c"
+};
+
+// Initialize Firebase
+const firebaseApp = initializeApp(firebaseConfig);
+
+
 function App(props) {
-  // Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyCTWXsmkK9nspvjf3e5-7QBPm9Svrn6jIU",
-    authDomain: "cs124-lab3-b556f.firebaseapp.com",
-    projectId: "cs124-lab3-b556f",
-    storageBucket: "cs124-lab3-b556f.appspot.com",
-    messagingSenderId: "160030425461",
-    appId: "1:160030425461:web:0c2b73599e571b82aa533c"
-  };
 
-  // Initialize Firebase
-  const firebaseApp = initializeApp(firebaseConfig);
-  const db = getFirestore(firebaseApp);
-
-  // Set up lists collection
-  const listsRef = collection(db, "lists");
-  const listsQuery = query(listsRef);
-  const [lists, loading, error] = useCollectionData(listsQuery);
+  // // Set up lists collection
+  // const listsRef = collection(db, "lists");
+  // const listsQuery = query(listsRef);
+  // const [lists, loading, error] = useCollectionData(listsQuery);
   
   const [data, setData] = useState(props.initialData);
 
